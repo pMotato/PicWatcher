@@ -18,9 +18,27 @@
 
 
 废话不多说上图
-![image](https://github.com/yuqiyich/StatusWarpLayout/blob/master/art/deafuat_error.gif)
+![image](https://github.com/yuqiyich/PicWatcher/blob/master/art/art1.gif)
 
-![image](https://github.com/yuqiyich/StatusWarpLayout/blob/master/art/custom_error.gif)
+![image](https://github.com/yuqiyich/PicWatcher/blob/master/art/art2.gif)
+
+![image](https://github.com/yuqiyich/PicWatcher/blob/master/art/art3.gif)
 
 
 ### Usage
+  1.  git上下载这个项目，然后直接引用picwatcherlib这个moudle。
+  2.
+    /**
+     *
+     * @param activity 当前的activity
+     * @param p 当前点击的imageView
+     * @param position 图片显示在图片集合中的位置
+     * @param thumUrlsImageView  可见的imageview的集合
+     * @param bigUrlLists 所有图片的下载地址集合
+     */
+    public static  void showImages(final Activity activity, ImageView p,int position, List<ImageView> thumUrlsImageView, List<String> bigUrlLists){
+        showImages(activity,p,thumUrlsImageView,position,bigUrlLists,null,true);
+    }
+
+  调用PicWatcher.showImages(填入上面的相关参数)，即可实现gif的效果
+

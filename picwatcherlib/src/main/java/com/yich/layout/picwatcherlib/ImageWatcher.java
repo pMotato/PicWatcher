@@ -402,7 +402,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
                 if (vsDefault == null) {
                     // 没有vsDefault标志的View说明图标正在下载中。转化为Slide手势，可以进行viewpager的翻页滑动
                     mTouchMode = TOUCH_MODE_SLIDE;
-                }  else if (Math.abs(moveX) < mTouchSlop && moveY > mTouchSlop * 3) {
+                }  else if (Math.abs(moveX) < mTouchSlop && moveY > mTouchSlop * 3&&!(vsCurrent.scaleY > vsDefault.scaleY || vsCurrent.scaleX > vsDefault.scaleX)) {
                     if (vsCurrent.scaleY > vsDefault.scaleY || vsCurrent.scaleX > vsDefault.scaleX){
                         isBigExit=true;
                     }
@@ -646,21 +646,21 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
             }
             if (vsDefault.height * vsTouchDrag.scaleY <= mHeight){//放大之后高还是小于屏幕
                 isYCanMove=false;
-                if(Math.abs(moveX) < mTouchSlop && moveY > mTouchSlop * 3){//如果判断是下滑就下滑处理
+              /*  if(Math.abs(moveX) < mTouchSlop && moveY > mTouchSlop * 3){//如果判断是下滑就下滑处理
                     isBigExit=true;
                     mTouchMode=TOUCH_MODE_EXIT;
                     return ;
-                }
+                }*/
             }else{
                 float translateYEdgeLen = (vsDefault.height *vsTouchDrag.scaleY-mHeight) / 2;
-                if (Math.abs(translateYValue -vsDefault.translationY) > translateYEdgeLen+ ScreenUtils.dpToPx(getContext(),30))
+                /*if (Math.abs(translateYValue -vsDefault.translationY) > translateYEdgeLen+ ScreenUtils.dpToPx(getContext(),30))
                 {
                     if(Math.abs(moveX) < mTouchSlop && moveY > mTouchSlop * 3){//如果判断是下滑就下滑处理
                         isBigExit=true;
                         mTouchMode=TOUCH_MODE_EXIT;
                         return ;
                     }
-                }
+                }*/
                 if (translateYValue -vsDefault.translationY > translateYEdgeLen) {
                     translateYValue = vsDefault.translationY +translateYEdgeLen+ (translateYValue - vsDefault.translationY) * 0.12f;
                 } else if (translateYValue -vsDefault.translationY <- translateYEdgeLen) {
@@ -680,12 +680,12 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
             if (vsDefault.width * vsTouchDrag.scaleX <= mWidth) {
                 isXCanMove = false;
             }
-            if (Math.abs(translateYValue - vsDefault.translationY) > translateYEdgeLen + ScreenUtils.dpToPx(getContext(), 30)) {
-                if (Math.abs(moveX) < mTouchSlop && moveY > mTouchSlop * 3) {//如果判断是下滑就下滑处理
-                    isBigExit=true;
-                    mTouchMode = TOUCH_MODE_EXIT;
-                    return;
-                }
+            if (Math.abs(translateYValue - vsDefault.translationY) > translateYEdgeLen + ScreenUtils.dpToPx(getContext(), 1)) {
+//                if (Math.abs(moveX) < mTouchSlop && moveY > mTouchSlop * 3) {//如果判断是下滑就下滑处理
+//                    isBigExit=true;
+//                    mTouchMode = TOUCH_MODE_EXIT;
+//                    return;
+//                }
                 if (Math.abs(moveY) < mTouchSlop &&  Math.abs(moveX) > mTouchSlop * 3){//小于屏幕是还是让左右滑动
                     mTouchMode = TOUCH_MODE_SLIDE;
                     return ;
@@ -880,8 +880,9 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
         if (iOrigin != null) {
             iOrigin.setVisibility(View.VISIBLE);
         }
-        if (position < mImageGroupList.size()) {
-            iOrigin = mImageGroupList.get(position);
+        int pos=orginImageViewPosition-initPosition+position;
+        if (pos<mImageGroupList.size()&&pos>=0){
+            iOrigin = mImageGroupList.get(pos);
             if (iOrigin.getDrawable() != null) iOrigin.setVisibility(View.INVISIBLE);
         }
         refreshCurrentIdx(position);

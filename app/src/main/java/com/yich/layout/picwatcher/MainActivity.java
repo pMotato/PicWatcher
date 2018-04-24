@@ -91,7 +91,7 @@ static
             @Override
             public void onClick(View v) {
                 //展示单张张图片
-               PicWatcher.showSingleImage(MainActivity.this,imageView,"");
+               PicWatcher.showSingleImage(MainActivity.this,imageView,"https://raw.githubusercontent.com/yuqiyich/PicWatcher/master/art/long_pic.jpg");
             }
         });
     }
